@@ -4,7 +4,7 @@ import nodemailer from "nodemailer"
 
 export const POST = async (req: NextRequest) => {
     try {
-        const { email_address } = await req.json(); 
+        const { email_address,name } = await req.json(); 
         if (!email_address) {
             return new NextResponse(JSON.stringify({ message: "Email address is required" }), {
                 status: 400,
@@ -23,7 +23,11 @@ export const POST = async (req: NextRequest) => {
 
        
         const mailOptions = {
-            from: process.env.BRAVO_MAIL!,
+            from:{
+                name:name,
+                address: process.env.BRAVO_MAIL! ,
+
+            } ,
             to: email_address,
             subject: "Thanks for Subscribing",
             text: "Thanks for Subscribing",

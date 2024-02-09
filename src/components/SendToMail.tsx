@@ -26,6 +26,7 @@ const FormSchema = z.object({
   email_address: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
+  name:z.string()
 })
 
 
@@ -38,6 +39,7 @@ export function SendToMail() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
         email_address: "",
+        name:"",
     },
   })
   const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL! || 'http://localhost:3000';
@@ -87,6 +89,22 @@ export function SendToMail() {
               </FormControl>
               <FormDescription>
                 This is a form that sends automatic msg to the email provided .
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Your name</FormLabel>
+              <FormControl>
+                <Input  id="name" placeholder="name" {...field} />
+              </FormControl>
+              <FormDescription>
+                This is a form that sends automatic msg to the name provided .
               </FormDescription>
               <FormMessage />
             </FormItem>
