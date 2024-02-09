@@ -37,4 +37,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## auto email vercel app 
 
-redeploy after changing env
+redeploy after changing env, redeploying again typo in production environment variables
