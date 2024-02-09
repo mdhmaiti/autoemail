@@ -18,8 +18,10 @@ export const POST = async (req: NextRequest) => {
                 user: process.env.BRAVO_MAIL!,
                 pass: process.env.BRAVO_SMTP!,
             },
+           
         });
 
+       
         const mailOptions = {
             from: process.env.BRAVO_MAIL!,
             to: email_address,
@@ -27,7 +29,19 @@ export const POST = async (req: NextRequest) => {
             text: "Thanks for Subscribing",
         };
 
-        await transporter.sendMail(mailOptions);
+        
+await new Promise((resolve, reject) => {
+   
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+            console.error(err);
+            reject(err);
+        } else {
+            // console.log(info);
+            resolve(info);
+        }
+    });
+});
         return new NextResponse(JSON.stringify({ message: "Email sent successfully" }), {
             status: 200,
         });
